@@ -1,0 +1,72 @@
+{
+  "items": [
+    {
+      "source_key": "public-example:llm-wiki",
+      "revision": "golden-example-v1",
+      "canonical_url": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f",
+      "concept_name": "LLM Wiki（持续编译式知识库）",
+      "what": "让 LLM 不只在提问时临时检索资料，而是持续维护一套可阅读、可互链、会随新资料更新的 Markdown Wiki。",
+      "why_important": "它把每次阅读和问答留下的整理结果沉淀下来，让知识库逐步积累，而不是每次都从零拼答案。",
+      "problem_solved": "解决普通 RAG 在复杂问题上反复检索、反复拼接、多文档关系难以长期积累的问题。",
+      "compared_with": "检索增强生成（RAG）",
+      "similarities": "两者都把模型参数之外的外部资料引入回答过程，都希望提升知识密集型问题的准确性和可追溯性。",
+      "differences": "RAG 主要在查询时检索相关片段再生成答案；LLM Wiki 则在资料进入时把信息整合进持久、互链的知识层，并持续更新摘要、实体关系和矛盾记录。",
+      "use_when": "适合长期研究、读书、竞品跟踪或团队知识管理，尤其是问题经常需要跨多份资料综合时。",
+      "not_replacement": "它不是 RAG 的全面替代。一次性问答、快速事实检索、海量语料即时查找仍更适合 RAG；LLM Wiki 更像需要持续维护的知识编译层。",
+      "maturity": "hypothesis",
+      "confidence": 0.78,
+      "action_recommendation": "先在一个边界清晰、可以人工复核的小主题上试点，保留原始资料不变，并比较 Wiki 与现有 RAG 在重复问题和跨文档综合上的效果，再决定是否扩大。",
+      "comparison_sources": [
+        {
+          "title": "Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks",
+          "url": "https://arxiv.org/abs/2005.11401"
+        }
+      ],
+      "evidence": [
+        {
+          "field": "what",
+          "quote": "Instead of just retrieving from raw documents at query time, the LLM incrementally builds and maintains a persistent wiki.",
+          "source_url": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+        },
+        {
+          "field": "why_important",
+          "quote": "The wiki is a persistent, compounding artifact.",
+          "source_url": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+        },
+        {
+          "field": "problem_solved",
+          "quote": "The LLM is rediscovering knowledge from scratch on every question. There's no accumulation.",
+          "source_url": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+        },
+        {
+          "field": "differences",
+          "quote": "The knowledge is compiled once and then kept current, not re-derived on every query.",
+          "source_url": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+        },
+        {
+          "field": "differences",
+          "quote": "We introduce RAG models where the parametric memory is a pre-trained seq2seq model and the non-parametric memory is a dense vector index of Wikipedia, accessed with a pre-trained neural retriever.",
+          "source_url": "https://arxiv.org/abs/2005.11401"
+        },
+        {
+          "field": "maturity",
+          "quote": "This is an idea file, it is designed to be copy pasted to your own LLM Agent.",
+          "source_url": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+        },
+        {
+          "field": "action_recommendation",
+          "quote": "The right way to use this is to share it with your LLM agent and work together to instantiate a version that fits your needs.",
+          "source_url": "https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f"
+        }
+      ],
+      "scores": {
+        "novelty": 2,
+        "problem_clarity": 2,
+        "mechanism_clarity": 2,
+        "evidence_quality": 2,
+        "source_authority": 1,
+        "promotional_penalty": 0
+      }
+    }
+  ]
+}

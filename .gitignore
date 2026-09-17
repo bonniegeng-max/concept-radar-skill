@@ -1,0 +1,22 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+.env
+.env.*
+
+# 本地运行状态与生成物
+runtime/
+state.json
+candidates.json
+concept-radar.md
+concept-radar.json
+selection.json
+
+# 私有配置、凭证与日志
+authors.yaml
+*token*
+*cookie*
+*.log
