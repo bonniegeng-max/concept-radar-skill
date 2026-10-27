@@ -1,6 +1,6 @@
 ---
 name: "concept-radar"
-description: "Discovers, deduplicates, evaluates, and exports evidence-backed concepts from one URL or an author pool. Invoke for ad hoc or recurring concept research; publishing is optional."
+description: "概念雷达——从一个链接或一批作者里，把「值得跟进的新概念」捞出来：去重、给证据、打分、可导出。治的是信息焦虑：不追热点，只留能落地的概念。Discovers, deduplicates, evaluates, and exports evidence-backed concepts from one URL or an author pool. Use when the user wants to track a field, mine an author's idea pool, or run recurring concept research; publishing is optional. Not a news feed — output is evidence-graded concepts, not breaking headlines."
 ---
 
 # Concept Radar
@@ -74,3 +74,7 @@ python3 .trae/skills/concept-radar/scripts/concept_radar.py publish --channel fe
 
 Skill 内不得保存 token、cookie、open_id、抓取正文、一次性运行结果或用户私密数据。
 发布包排除规则见 [RELEASE.md](RELEASE.md) 与 `.skillignore`。
+
+## Related skills
+
+- 概念雷达筛出「值得跟进」之后，用 `priority-coach` 决定「这周到底做哪一个」：一个治信息焦虑，一个治选择焦虑。

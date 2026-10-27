@@ -457,17 +457,6 @@ def scan_feed(author, source, previous, opener=None):
     }
 
 
-
-def _infer_gist_title(body, gist_id):
-    for line in (body or "").splitlines():
-        text = line.strip()
-        if text.startswith("# "):
-            return text[2:].strip()
-        if text:
-            break
-    return f"Gist {gist_id}"
-
-
 def _scan_gists_profile(author, source, previous, opener=None):
     username = source["username"]
     first_url = f"https://gist.github.com/{urllib.parse.quote(username)}"
@@ -510,7 +499,7 @@ def _scan_gists_profile(author, source, previous, opener=None):
             "revision": final if final != canonicalize_url(raw_url) else digest,
             "author_id": author["id"],
             "author_name": author["display_name"],
-            "title": _infer_gist_title(body, gist_id),
+            "title": Path(urllib.parse.urlsplit(final_raw_url).path).name or f"Gist {gist_id}",
             "body": body,
             "published_at": None,
             "updated_at": None,

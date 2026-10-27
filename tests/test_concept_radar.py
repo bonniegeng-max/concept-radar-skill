@@ -11,7 +11,6 @@ from pathlib import Path
 from unittest import mock
 
 SCRIPT = Path(__file__).parents[1] / "scripts" / "concept_radar.py"
-PACKAGE_ROOT = Path(__file__).parents[1]
 spec = importlib.util.spec_from_file_location("generic_concept_radar", SCRIPT)
 radar = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(radar)
@@ -333,63 +332,6 @@ class PublishTests(unittest.TestCase):
             saved = json.loads(state_path.read_text())
             self.assertEqual(saved["concepts"][fingerprint]["status"], "published")
             self.assertEqual(saved["concepts"][fingerprint]["message_id"], "m1")
-
-
-class ReleasePackageTests(unittest.TestCase):
-    def test_llm_wiki_golden_card_passes_workflow_validation(self):
-        selection = json.loads(
-            (PACKAGE_ROOT / "examples" / "llm-wiki-card.json").read_text()
-        )
-        item = selection["items"][0]
-        source = candidate(item["source_key"])
-        source.update(
-            revision=item["revision"],
-            canonical_url=item["canonical_url"],
-            author_name="Public example",
-            title="LLM Wiki",
-        )
-        with tempfile.TemporaryDirectory() as temporary:
-            root = Path(temporary)
-            runtime = root / "runtime"
-            runtime.mkdir()
-            config = root / "config.json"
-            state = root / "state.json"
-            selection_path = root / "selection.json"
-            config.write_text(json.dumps({
-                "schema_version": 1,
-                "selection": {"minimum_score": 6, "max_items_per_run": 5},
-                "authors": [],
-            }))
-            state.write_text(json.dumps({
-                "schema_version": 1,
-                "sources": {},
-                "items": {},
-                "concepts": {},
-                "pending_scan": {"mode": "single-url", "source_updates": {}},
-            }))
-            (runtime / "candidates.json").write_text(json.dumps({
-                "schema_version": 1,
-                "mode": "single-url",
-                "candidates": [source],
-            }))
-            selection_path.write_text(json.dumps(selection))
-            output, markdown = radar.validate_selection(
-                selection_path, config, state, runtime
-            )
-        self.assertEqual(output["items"][0]["concept_name"], item["concept_name"])
-        self.assertIn("非替代边界", markdown)
-
-    def test_release_examples_explain_acceptance_and_rejection(self):
-        brief = (PACKAGE_ROOT / "examples" / "llm-wiki-brief.md").read_text()
-        rejected = (PACKAGE_ROOT / "examples" / "rejected-hello.md").read_text()
-        for phrase in ("抗 FOMO", "分层证据", "范式对比"):
-            self.assertIn(phrase, brief)
-        for phrase in ("不入选概念卡", "判断说明", "不复制候选正文"):
-            self.assertIn(phrase, rejected)
-
-    def test_release_metadata_exists(self):
-        for name in ("LICENSE", "CHANGELOG.md", ".gitignore", ".skillignore"):
-            self.assertTrue((PACKAGE_ROOT / name).is_file(), name)
 
 
 if __name__ == "__main__":

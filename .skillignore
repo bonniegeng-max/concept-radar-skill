@@ -11,8 +11,6 @@
 **/candidates.json
 **/concept-radar.md
 **/concept-radar.json
-**/selection.json
-**/authors.yaml
 **/*token*
 **/*cookie*
 **/*.log
